@@ -1,0 +1,5 @@
+*.usd
+
+output
+backup
+__pycache__
