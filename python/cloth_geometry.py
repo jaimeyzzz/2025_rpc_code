@@ -47,8 +47,6 @@ class ClothGeometry:
         self.edges = self.mesh_trimesh.edges_unique
         self.edges_length = np.linalg.norm(self.positions[self.edges[:, 1]] - self.positions[self.edges[:, 0]], axis=1)
 
-
-
     def getPoints(self, simulation_time):
         return self.mesh.GetPointsAttr().Get(simulation_time)
     
