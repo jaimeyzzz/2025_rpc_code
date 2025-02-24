@@ -1,7 +1,9 @@
 import numpy as np
 import warp as wp
 
+from cloth_geometry import ClothGeometry
 from pxr import Usd, UsdGeom, Sdf
+from solver_registry import registry
 
 @wp.kernel
 def updatePositions(positions_proposed: wp.array(dtype=wp.vec3),
@@ -171,3 +173,5 @@ class ClothSolver:
 
         # save the stage
         stage.Save()
+
+registry.register("cloth_solver", ClothSolver, ClothGeometry)

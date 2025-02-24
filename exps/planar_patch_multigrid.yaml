@@ -1,0 +1,8 @@
+scene_name: planar_patch_multigrid
+solver_name: cloth_solver
+fps: 60
+frames: 60
+substeps: 100
+
+geometry_file: scenes/planar_patch_multigrid/planar_patch_multigrid.usd
+output_path: ./

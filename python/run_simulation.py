@@ -6,7 +6,9 @@ import spdlog
 import numpy as np
 
 from cloth_geometry import ClothGeometry
+from cloth_geometry_multigrid import ClothGeometryMultigrid
 from cloth_solver import ClothSolver
+from solver_registry import registry
 
 # define some constants
 RESOURCES_DIR = "../"
@@ -70,15 +72,17 @@ logger.info("Output path: {}".format(config['output_path']))
 # run simulation
 logger.info("Running simulation...")
 
+solver_type, geometry_type = registry.select(solver_name)
+
 usd_file = os.path.join(RESOURCES_DIR, geometry_file)
-geometry = ClothGeometry(usd_file)
+geometry = geometry_type(usd_file)
 
 frames_num = 60
 FPS = 60
 substeps_num = 100
 dt = 1.0/FPS/substeps_num
 
-solver = ClothSolver(geometry, FPS)
+solver = solver_type(geometry, FPS)
 filepath = '{}/frame_{}.usd'.format(sim_path, 0)
 solver.dump(filepath)
 
@@ -88,5 +92,3 @@ for frame_index in range(frames_num):
 
     filepath = '{}/frame_{}.usd'.format(sim_path, frame_index + 1)
     solver.dump(filepath)
-
-

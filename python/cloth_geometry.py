@@ -41,6 +41,7 @@ class ClothGeometry:
         # compute invmasses if masses is zero, set inv_masses to 0
         self.invmasses = np.zeros_like(self.masses)
         self.invmasses[self.masses!= 0] = 1.0 / self.masses[self.masses!= 0]
+        self.invmasses[self.fixed!=0] = 0.0
 
         # compute the edges of the triangles with trimesh
         self.mesh_trimesh = trimesh.Trimesh(vertices=self.positions, faces=self.triangles.reshape(-1, 3))
